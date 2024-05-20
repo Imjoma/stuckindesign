@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --transition: cubic-bezier(0.1, 0.7, 0, 1);
+}
+
+body {
+  background: black;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
+}
+
+.img {
+  width: 6rem;
+  height: 21rem;
+  background-size: cover;
+  background-position: center;
+  background-image: url(https://images.pexels.com/photos/10295057/pexels-photo-10295057.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+  cursor: pointer;
+  transition: transform 1.25s var(--transition), filter 3s var(--transition),
+    width 0.3s var(--transition);
+  position: relative;
+  filter: grayscale(1) brightness(0.5);
+  /* browser makes some optimization for these transitions */
+  will-change: transform, filter;
+}
+
+/* Image Card hover */
+
+.img:hover {
+  transform: translateZ(17.375rem);
+  filter: inherit;
+}
+
+.img::before,
+.img::after {
+  content: "";
+  position: absolute;
+  width: 1.25rem;
+  height: 100%;
+  right: -1.25rem;
+}
+
+.img::after {
+  left: -1.25rem;
+}
+
+/* Image Card Click */
+
+.open {
+  width: 25vw;
+  transform: translateZ(17.375rem);
+  filter: inherit;
+  z-index: 1;
+  margin: 0 0.45vw;
+}
+
+/* Image Card -4, +4 effect*/
+
+/* -- sibling at right */
+
+.img:hover + * {
+  transform: translateZ(14.77rem) rotateY(35deg);
+  z-index: -1;
+  filter: grayscale(0.2) brightness(0.9);
+}
+
+.img:hover + * + * {
+  transform: translateZ(9.73rem) rotateY(40deg);
+  z-index: -2;
+  filter: grayscale(0.4) brightness(0.8);
+}
+
+.img:hover + * + * + * {
+  transform: translateZ(4.14rem) rotateY(35deg);
+  z-index: -3;
+  filter: grayscale(0.6) brightness(0.7);
+}
+
+.img:hover + * + * + * + * {
+  transform: translateZ(1.1rem) rotateY(25deg);
+  z-index: -4;
+  filter: grayscale(0.8) brightness(0.6);
+}
+
+/* -- sibling at left */
+
+.img:has(+ :hover) {
+  transform: translateZ(14.77rem) rotateY(-35deg);
+  z-index: -1;
+  filter: grayscale(0.2) brightness(0.9);
+}
+
+.img:has(+ * + :hover) {
+  transform: translateZ(9.73rem) rotateY(-40deg);
+  z-index: -2;
+  filter: grayscale(0.4) brightness(0.8);
+}
+
+.img:has(+ * + * + :hover) {
+  transform: translateZ(4.14rem) rotateY(-35deg);
+  z-index: -3;
+  filter: grayscale(0.6) brightness(0.7);
+}
+
+.img:has(+ * + * + * + :hover) {
+  transform: translateZ(1.1rem) rotateY(-25deg);
+  z-index: -4;
+  filter: grayscale(0.8) brightness(0.6);
+}
