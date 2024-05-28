@@ -14,7 +14,6 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         {/* MouseFollower */}
         {children}
-        {/* Footer */}
       </body>
     </html>
   );
