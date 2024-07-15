@@ -12,12 +12,31 @@
   --transition: cubic-bezier(0.1, 0.7, 0, 1);
 }
 
+.swiper-slide-active,
+.swiper-slide-next,
+.swiper-slide-prev {
+  transition: transform 1s var(--transition), opacity 1s var(--transition);
+}
+
+.swiper-slide-next,
+.swiper-slide-next + *,
+.swiper-slide-prev {
+  opacity: 0.6;
+}
+
+.swiper-slide-next {
+  transform: translateY(2rem) rotate(5deg) scale(0.9);
+}
+.swiper-slide-prev {
+  transform: translateY(2rem) rotate(-5deg) scale(0.9);
+}
+
 body {
   background: #111;
-  background: radial-gradient(circle, #222 0%, black 100%);
+  background: radial-gradient(circle, #222 0%, #111 100%);
   background-repeat: no-repeat;
   width: 100vw;
-  height: 100vh;
+  /* height: 100vh; */
   overflow-x: hidden;
 }
 
@@ -27,27 +46,31 @@ body {
   height: 21rem;
   background-size: cover;
   background-position: center;
-  background-image: url(https://images.pexels.com/photos/10295057/pexels-photo-10295057.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+  /* background-image: url("../public/assets/images/teamliquid.webp"); */
   cursor: pointer;
   transition: transform 1.25s var(--transition), filter 3s var(--transition),
-    width 0.3s var(--transition);
+    width 0.3s var(--transition), height 0.3s var(--transition);
   position: relative;
   filter: grayscale(1) brightness(0.5);
   /* browser makes some optimization for these transitions */
   will-change: transform, filter;
+  /* mask-image: linear-gradient(to bottom, black 80%, transparent 100%); */
+  border-radius: 2px;
 }
 
-@media only screen and (max-width: 1024px) {
-  .img-card:is(:nth-child(1)) {
+@media only screen and (max-width: 1023px) {
+  .img-card {
+    width: 100%;
+    max-width: 36rem;
+    height: 6rem;
+  }
+
+  .open-sm {
     width: 100%;
     height: 21rem;
-    filter: none;
-  }
-  .img-card {
-    width: 21rem;
-    height: 21rem;
-    filter: none;
-    transform: matrix3d(10deg);
+    transform: none;
+    filter: inherit;
+    z-index: 1;
   }
 }
 
@@ -80,6 +103,7 @@ body {
   z-index: 1;
   margin: 0 0.45vw;
   transform-origin: right;
+  cursor: default;
 }
 
 ul:has(.img.open:is(:nth-child(1))) {
